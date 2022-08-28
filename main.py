@@ -22,8 +22,8 @@ def page_users_by_id(id_user):
         res = Utils()
         return jsonify(res.get_by_id(User, id_user))
     elif request.method == 'PUT':
-        content = request.form['content']
-        res = Utils().update_data_bd(User, content, id_user)
+        content = request.json
+        Utils().update_data_user(User, content, id_user)
         return "Пользователь обновлён"
     else:
         Utils().delete_data_in_bd(User, id_user)
@@ -43,7 +43,7 @@ def page_all_users():
         return jsonify(res.get_all(User))
     else:
         content = request.json
-        res = Utils().add_data_bd(User, content)
+        Utils().add_data_bd(User, content)
         return "Пользователь создан"
 
 
@@ -64,7 +64,7 @@ def page_order_by_id(id_order):
         return jsonify(res.get_by_id(Order, id_order))
     elif request.method == 'PUT':
         content = request.json
-        res = Utils().update_data_bd(Order, content, id_order)
+        Utils().update_data_order(Order, content, id_order)
         return "Заказ обновлён"
     else:
         Utils().delete_data_in_bd(Order, id_order)
@@ -84,13 +84,13 @@ def page_all_orders():
         return jsonify(res.get_all(Order))
     else:
         content = request.json
-        res = Utils().add_data_bd(Order, content)
+        Utils().add_data_bd(Order, content)
         return "Заказ создан"
 
 
 # для предложений после ревью
 
-@app.route('/order/<int:id_offer>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/offer/<int:id_offer>', methods=['GET', 'PUT', 'DELETE'])
 def page_offer_by_id(id_offer):
     """
     в зависимости от запроса
@@ -105,7 +105,7 @@ def page_offer_by_id(id_offer):
         return jsonify(res.get_by_id(Offer, id_offer))
     elif request.method == 'PUT':
         content = request.json
-        res = Utils().update_data_bd(Offer, content, id_offer)
+        Utils().update_data_offer(Offer, content, id_offer)
         return "Предложение обновлено"
     else:
         Utils().delete_data_in_bd(Offer, id_offer)
@@ -125,7 +125,7 @@ def page_all_offers():
         return jsonify(res.get_all(Offer))
     else:
         content = request.json
-        res = Utils().add_data_bd(Offer, content)
+        Utils().add_data_bd(Offer, content)
         return "Предложение создано"
 
 

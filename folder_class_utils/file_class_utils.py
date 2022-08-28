@@ -1,8 +1,4 @@
 from flask_config import db
-from model_user.file_model_user import User
-from model_order.file_model_order import Order
-from model_offer.file_model_offer import Offer
-from flask import jsonify
 
 
 class Utils:
@@ -43,16 +39,55 @@ class Utils:
         db.session.add(res)
         db.session.commit()
 
-    def update_data_bd(self, model, data, id):
+    def update_data_user(self, model, data, id):
         """
-        обновляем данные
+        обновляем данные пользователя
         :param model:
         :param data:
         :param id:
         :return:
         """
         upd = model.query.get(id)
-        upd.all = data
+        upd.first_name = data["first_name"]
+        upd.last_name = data["last_name"]
+        upd.age = data["age"]
+        upd.email = data["email"]
+        upd.role = data["role"]
+        upd.phone = data["phone"]
+        db.session.add(upd)
+        db.session.commit()
+
+    def update_data_order(self, model, data, id):
+        """
+        обновляем данные пользователя
+        :param model:
+        :param data:
+        :param id:
+        :return:
+        """
+        upd = model.query.get(id)
+        upd.name = data["name"]
+        upd.description = data["description"]
+        upd.start_date = data["start_date"]
+        upd.end_date = data["end_date"]
+        upd.address = data["address"]
+        upd.price = data["price"]
+        upd.customer_id = data["customer_id"]
+        upd.executor_id = data["executor_id"]
+        db.session.add(upd)
+        db.session.commit()
+
+    def update_data_offer(self, model, data, id):
+        """
+        обновляем данные пользователя
+        :param model:
+        :param data:
+        :param id:
+        :return:
+        """
+        upd = model.query.get(id)
+        upd.order_id = data["order_id"]
+        upd.executor_id = data["executor_id"]
         db.session.add(upd)
         db.session.commit()
 
@@ -66,8 +101,6 @@ class Utils:
         res = model.query.get(id)
         db.session.delete(res)
         db.session.commit()
-
-
 
 # res = Utils()
 # print(res.get_all(User))
