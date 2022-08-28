@@ -39,7 +39,7 @@ class Utils:
         :param data: значения для колумнс модели
         :return: нон(происходит запись в БД)
         """
-        res = model(data)
+        res = model(**data)
         db.session.add(res)
         db.session.commit()
 
@@ -63,7 +63,7 @@ class Utils:
         :param id:
         :return:
         """
-        res = User.query.get(id)
+        res = model.query.get(id)
         db.session.delete(res)
         db.session.commit()
 
